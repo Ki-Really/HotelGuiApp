@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotelappwithhibernate.controllers.MaidController">
+    <children>
+        <ImageView fitHeight="525.0" fitWidth="929.0" layoutX="-9.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/other.jpg" />
+            </image>
+        </ImageView>
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backAction" text="Назад" />
+        <ScrollPane layoutX="186.0" layoutY="14.0" prefHeight="350.0" prefWidth="714.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="710.0">
+                    <children>
+                        <TableView fx:id="table" prefHeight="350.0" prefWidth="714.0">
+                            <columns>
+                                <TableColumn fx:id="tableId" prefWidth="36.79998856782913" text="Id" />
+                                <TableColumn fx:id="tableName" onEditCommit="#onNameChange" prefWidth="61.59995651245117" text="Имя" />
+                                <TableColumn fx:id="tableSurname" onEditCommit="#onSurnameChange" prefWidth="81.5999755859375" text="Фамилия" />
+                                <TableColumn fx:id="tablePatronymic" onEditCommit="#onPatronymicChange" prefWidth="100.80000305175781" text="Отчество" />
+                                <TableColumn fx:id="tableCountry" onEditCommit="#onCountryChange" prefWidth="96.79998779296875" text="Страна" />
+                                <TableColumn fx:id="tableCity" onEditCommit="#onCityChange" minWidth="0.0" prefWidth="95.19989013671875" text="Город" />
+                                <TableColumn fx:id="tableStreet" onEditCommit="#onStreetChange" prefWidth="96.800048828125" text="Улица" />
+                                <TableColumn fx:id="tableBuilding" onEditCommit="#onBuildingChange" prefWidth="60.800048828125" text="Дом" />
+                                <TableColumn fx:id="tableDelete" text="Удалить" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <TitledPane fx:id="titledPane" animated="false" layoutX="10.0" layoutY="364.0" prefHeight="122.0" prefWidth="890.0" text="Добавить уборщицу">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="81.0" prefWidth="889.0">
+                    <children>
+                        <Button layoutX="22.0" layoutY="62.0" mnemonicParsing="false" text="Добавить" onAction="#create" />
+                        <Label layoutX="14.0" layoutY="1.0" text="Имя" />
+                        <TextField fx:id="maidNameAdd" layoutX="14.0" layoutY="19.0" prefHeight="26.0" prefWidth="84.0" />
+                        <Label layoutX="135.0" layoutY="2.0" text="Фамилия" />
+                        <TextField fx:id="maidSurnameAdd" layoutX="135.0" layoutY="20.0" prefHeight="26.0" prefWidth="86.0" />
+                        <Label layoutX="266.0" layoutY="1.0" text="Отчество" />
+                        <TextField fx:id="maidPatronymicAdd" layoutX="266.0" layoutY="19.0" prefHeight="26.0" prefWidth="86.0" />
+                        <Label layoutX="464.0" layoutY="1.0" text="Страна" />
+                        <TextField fx:id="maidCountryAdd" layoutX="464.0" layoutY="19.0" prefHeight="26.0" prefWidth="86.0" />
+                        <Label layoutX="581.0" layoutY="1.0" text="Город" />
+                        <TextField fx:id="maidCityAdd" layoutX="581.0" layoutY="19.0" prefHeight="26.0" prefWidth="86.0" />
+                        <Label layoutX="678.0" layoutY="1.0" text="Улица" />
+                        <TextField fx:id="maidStreetAdd" layoutX="678.0" layoutY="19.0" prefHeight="26.0" prefWidth="86.0" />
+                        <Label layoutX="772.0" layoutY="1.0" text="Дом" />
+                        <TextField fx:id="maidBuildingAdd" layoutX="772.0" layoutY="19.0" prefHeight="26.0" prefWidth="86.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </TitledPane>
+        <Button layoutX="69.0" layoutY="229.0" mnemonicParsing="false"  text="Найти" onAction="#findInTable" />
+        <TextField fx:id="findTextField" layoutX="19.0" layoutY="176.0" />
+    </children>
+</AnchorPane>
