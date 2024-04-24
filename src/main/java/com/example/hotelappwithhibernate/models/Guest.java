@@ -1,9 +1,6 @@
 package com.example.hotelappwithhibernate.models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
-
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,36 +12,48 @@ public class Guest {
     @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name ="name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
+
     @Column(name ="patronymic")
     private String patronymic;
+
     @Column(name = "gender")
     private String gender;
+
     @Column(name = "birth_date")
     private Date birth_date;
+
     @OneToOne
     @JoinColumn(name ="address_id",referencedColumnName = "id")
     private Address address;
+
     @OneToOne
     @JoinColumn(name ="passport_id",referencedColumnName = "id")
     private Passport passport;
+
     @ManyToOne
     @JoinColumn(name ="room_id",referencedColumnName = "id")
     private Room room;
+
     @Column(name = "parking_lot_number")
     private int parking_lot_number;
+
     @Column(name = "auto_number")
     private String auto_number;
+
     @Column(name = "date_of_entry")
     private Date date_of_entry;
+
     @Column(name = "departure_date")
     private Date departure_date;
+
     @ManyToMany(mappedBy="guests",fetch = FetchType.EAGER)
     private List<Service> services;
-
 
     @Override
     public String toString() {
@@ -54,14 +63,12 @@ public class Guest {
     }
 
     public Guest(String name, String surname, String patronymic, String gender, Date birth_date,
-                 int parking_lot_number,
-                 String auto_number, Date date_of_entry, Date departure_date) {
+                 int parking_lot_number, String auto_number, Date date_of_entry, Date departure_date) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
         this.gender = gender;
         this.birth_date = birth_date;
-
         this.parking_lot_number = parking_lot_number;
         this.auto_number = auto_number;
         this.date_of_entry = date_of_entry;
@@ -94,24 +101,12 @@ public class Guest {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public String getPatronymic() {
-        return patronymic;
-    }
-
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public void setGender(String gender) {
@@ -150,16 +145,8 @@ public class Guest {
         this.room = room;
     }
 
-    public int getParking_lot_number() {
-        return parking_lot_number;
-    }
-
     public void setParking_lot_number(int parking_lot_number) {
         this.parking_lot_number = parking_lot_number;
-    }
-
-    public String getAuto_number() {
-        return auto_number;
     }
 
     public void setAuto_number(String auto_number) {
@@ -193,5 +180,25 @@ public class Guest {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, surname, patronymic, gender, birth_date, address, passport, room, parking_lot_number, auto_number, date_of_entry, departure_date);
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public int getParking_lot_number() {
+        return parking_lot_number;
+    }
+
+    public String getAuto_number() {
+        return auto_number;
     }
 }

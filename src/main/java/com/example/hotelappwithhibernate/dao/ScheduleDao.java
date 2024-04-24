@@ -13,10 +13,8 @@ import java.util.List;
 public class ScheduleDao {
     private final SessionFactory sessionFactory;
 
-
     public ScheduleDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-
     }
 
     public List<Schedule> index(){
@@ -26,6 +24,7 @@ public class ScheduleDao {
         transaction.commit();
         return res;
     }
+
     public boolean isRoomPresent(Room room){
         List<Schedule> schedules = index();
         for(Schedule schedule : schedules){
@@ -38,7 +37,6 @@ public class ScheduleDao {
     }
 
     public void save(Schedule schedule, Room room, Maid maid){
-
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         schedule.setMaid(maid);
@@ -50,29 +48,23 @@ public class ScheduleDao {
     public void delete(int id){
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         session.remove(session.get(Schedule.class,id));
-
         transaction.commit();
     }
 
     public void updateDay(int id, String day){
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Schedule schedule = session.get(Schedule.class,id);
         schedule.setDay(day);
-
         transaction.commit();
     }
 
     public void updateTime(int id, String time){
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Schedule schedule = session.get(Schedule.class,id);
         schedule.setTime(time);
-
         transaction.commit();
     }
 
@@ -80,12 +72,9 @@ public class ScheduleDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Schedule scheduleToUpdate = session.get(Schedule.class,id);
-
         RoomDao roomDao = new RoomDao(this.sessionFactory);
         Room room = roomDao.findRoomByNumber(number);
-
         scheduleToUpdate.setRoom(room);
-
         transaction.commit();
     }
 
@@ -94,12 +83,10 @@ public class ScheduleDao {
         Transaction transaction = session.beginTransaction();
         Schedule scheduleToUpdate = session.get(Schedule.class,id);
         scheduleToUpdate.setMaid(maid);
-
         transaction.commit();
     }
 
     public List<Schedule> findByFields(String fieldsToFind){
-
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = "FROM Schedule s WHERE " +
@@ -108,8 +95,6 @@ public class ScheduleDao {
                 "OR cast(s.room.number as string) = '" + fieldsToFind + "' ";
         Query query = session.createQuery(hql, Schedule.class);
         List<Schedule> results = query.getResultList();
-
-
         transaction.commit();
         return results;
     }

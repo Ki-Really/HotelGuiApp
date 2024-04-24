@@ -9,13 +9,17 @@ public class Schedule {
     @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name ="day")
     private String day;
+
     @Column(name = "time")
     private String time;
+
     @ManyToOne
     @JoinColumn(name = "maid_id",referencedColumnName = "id")
     private Maid maid;
+
     @ManyToOne
     @JoinColumn(name = "room_id",referencedColumnName = "id")
     private Room room;
@@ -27,7 +31,6 @@ public class Schedule {
 
     public Schedule() {
     }
-
 
     public int getId() {
         return id;

@@ -12,8 +12,10 @@ public class Service {
     @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name ="name")
     private String name;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "guest_service",joinColumns = @JoinColumn(name = "service_id"),
             inverseJoinColumns = @JoinColumn(name = "guest_id"))

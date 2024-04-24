@@ -10,4 +10,6 @@ module com.example.hotelappwithhibernate {
     exports com.example.hotelappwithhibernate;
     exports com.example.hotelappwithhibernate.controllers;
     opens com.example.hotelappwithhibernate.controllers to javafx.fxml;
+    exports com.example.hotelappwithhibernate.models;
+
 }

@@ -6,7 +6,6 @@ import com.example.hotelappwithhibernate.dao.RoomDao;
 import com.example.hotelappwithhibernate.models.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -76,8 +75,6 @@ public class GuestController {
     public TableView<Guest> table;
     public TitledPane titledPane;
     public TextField guestGenderAdd;
-    private Stage stage;
-    private Scene scene;
     public ObservableList<Guest> obsGuestList = FXCollections.observableArrayList();
     ObservableList<Room> rooms = FXCollections.observableArrayList();
 
@@ -106,7 +103,7 @@ public class GuestController {
 
     private Date dateWork(String str){
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = null;
+        Date date;
         try {
             date = df.parse(str);
             return date;
@@ -175,83 +172,51 @@ public class GuestController {
 
         obsGuestList.addAll(guestList);
 
-        tableId.setCellValueFactory(new PropertyValueFactory<Guest, Integer>("Id"));
-        tableName.setCellValueFactory(new PropertyValueFactory<Guest, String>("Name"));
+        tableId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        tableName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         tableName.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        tableSurname.setCellValueFactory(new PropertyValueFactory<Guest, String>("Surname"));
+        tableSurname.setCellValueFactory(new PropertyValueFactory<>("Surname"));
         tableSurname.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        tablePatronymic.setCellValueFactory(new PropertyValueFactory<Guest, String>("Patronymic"));
+        tablePatronymic.setCellValueFactory(new PropertyValueFactory<>("Patronymic"));
         tablePatronymic.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        tableGender.setCellValueFactory(new PropertyValueFactory<Guest, String>("Gender"));
+        tableGender.setCellValueFactory(new PropertyValueFactory<>("Gender"));
         tableGender.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
-        tableNAuto.setCellValueFactory(new PropertyValueFactory<Guest, String>("auto_number"));
+        tableNAuto.setCellValueFactory(new PropertyValueFactory<>("auto_number"));
         tableNAuto.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        tableParking.setCellValueFactory(new PropertyValueFactory<Guest, Integer>("parking_lot_number"));
+        tableParking.setCellValueFactory(new PropertyValueFactory<>("parking_lot_number"));
         tableParking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
-
-        tableCountry.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Guest, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Guest, String> g) {
-                return new SimpleStringProperty( g.getValue().getAddress().getCountry());
-            }
-        });
+        tableCountry.setCellValueFactory(g -> new SimpleStringProperty( g.getValue().getAddress().getCountry()));
 
         tableCountry.setCellFactory(TextFieldTableCell.forTableColumn());
-        tableCity.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Guest, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Guest, String> g) {
-                return new SimpleStringProperty( g.getValue().getAddress().getCity());
-            }
-        });
+        tableCity.setCellValueFactory(g -> new SimpleStringProperty( g.getValue().getAddress().getCity()));
         tableCity.setCellFactory(TextFieldTableCell.forTableColumn());
         tableStreet.setCellFactory(TextFieldTableCell.forTableColumn());
-        tableStreet.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Guest, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Guest, String> g) {
-                return new SimpleStringProperty( g.getValue().getAddress().getStreet());
-            }
-        });
+        tableStreet.setCellValueFactory(g -> new SimpleStringProperty( g.getValue().getAddress().getStreet()));
 
         tableBuilding.setCellFactory(TextFieldTableCell.forTableColumn());
-        tableBuilding.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Guest, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Guest,String> g) {
-                return new SimpleStringProperty(g.getValue().getAddress().getBuilding());
-            }
-        });
+        tableBuilding.setCellValueFactory(g -> new SimpleStringProperty(g.getValue().getAddress().getBuilding()));
 
         tableNPassport.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        tableNPassport.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Guest, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Guest,Integer> g) {
-                return new SimpleObjectProperty<Integer>(g.getValue().getPassport().getNumber());
-            }
-        });
-
+        tableNPassport.setCellValueFactory(g -> new SimpleObjectProperty<>(g.getValue().getPassport().getNumber()));
 
         tableIssuance.setCellFactory(TextFieldTableCell.forTableColumn(new DateToStringConverter()));
-        tableIssuance.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Guest, Date>, ObservableValue<Date>>() {
-            @Override
-            public ObservableValue<Date> call(TableColumn.CellDataFeatures<Guest,Date> g) {
-                return new SimpleObjectProperty<Date>(g.getValue().getPassport().getIssuance());
-            }
-        });
+        tableIssuance.setCellValueFactory(g -> new SimpleObjectProperty<>(g.getValue().getPassport().getIssuance()));
 
         tableBirthDate.setCellFactory(TextFieldTableCell.forTableColumn(new DateToStringConverter()));
         tableBirthDate.setCellValueFactory(g -> new SimpleObjectProperty<>(g.getValue().getBirth_date()));
 
         tableDEntry.setCellFactory(TextFieldTableCell.forTableColumn(new DateToStringConverter()));
-        tableDEntry.setCellValueFactory(g -> new SimpleObjectProperty<Date>(g.getValue().getDate_of_entry()));
+        tableDEntry.setCellValueFactory(g -> new SimpleObjectProperty<>(g.getValue().getDate_of_entry()));
 
         tableDDepartment.setCellFactory(TextFieldTableCell.forTableColumn(new DateToStringConverter()));
-        tableDDepartment.setCellValueFactory(g -> new SimpleObjectProperty<Date>(g.getValue().getDeparture_date()));
+        tableDDepartment.setCellValueFactory(g -> new SimpleObjectProperty<>(g.getValue().getDeparture_date()));
 
         tableGivenBy.setCellFactory(TextFieldTableCell.forTableColumn());
         tableGivenBy.setCellValueFactory(g -> new SimpleStringProperty(g.getValue().getPassport().getGivenBy()));
@@ -262,17 +227,11 @@ public class GuestController {
             roomNumbers.add(room.getNumber());
         }
         tableNRoom.setCellFactory(ComboBoxTableCell.forTableColumn(roomNumbers));
-        tableNRoom.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Guest, Integer>, ObservableValue<Integer>>() {
-
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Guest, Integer> param) {
-                return new SimpleObjectProperty<Integer>(param.getValue().getRoom().getNumber());
-            }
-        });
+        tableNRoom.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getRoom().getNumber()));
 
 
         Callback<TableColumn<Guest, String>, TableCell<Guest, String>> cellDeleteFactory = (param) -> {
-            final TableCell<Guest, String> cell = new TableCell<Guest, String>() {
+            final TableCell<Guest, String> cell = new TableCell<>() {
                 @Override
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -336,8 +295,6 @@ public class GuestController {
         tableCreation();
     }
 
-
-
     public void onCityChange(TableColumn.CellEditEvent<Guest, String> guestStringCellEditEvent) {
         Guest guest = table.getSelectionModel().getSelectedItem();
         guestDao.updateCity(guest.getId(), guestStringCellEditEvent.getNewValue());
@@ -374,7 +331,6 @@ public class GuestController {
         tableCreation();
     }
     public void onParkingChange(TableColumn.CellEditEvent<Guest, Integer> guestIntCellEditEvent){
-
         Guest guest = table.getSelectionModel().getSelectedItem();
         guestDao.updateParking(guest.getId(), guestIntCellEditEvent.getNewValue());
         tableCreation();
@@ -386,18 +342,13 @@ public class GuestController {
         tableCreation();
     }
 
-
     public void onNRoomChange() {
         tableNRoom.setOnEditCommit((TableColumn.CellEditEvent<Guest, Integer> event) -> {
             TablePosition<Guest, Integer> pos = event.getTablePosition();
-
             int newNRoom = event.getNewValue();
-
             int row = pos.getRow();
             Guest guest = event.getTableView().getItems().get(row);
             guestDao.updateNRoom(guest.getId(),newNRoom);
-
-
         });
         tableCreation();
     }
@@ -418,9 +369,8 @@ public class GuestController {
 
     public void backAction(ActionEvent event)throws IOException {
         Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com.example.hotelappwithhibernate/scenes/app.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root,910,510);
-
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 910, 510);
         stage.setScene(scene);
         stage.show();
     }

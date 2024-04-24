@@ -8,19 +8,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateToStringConverter extends StringConverter<Date> {
-
     @Override
     public String toString(Date d) {
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-
         return df.format(d);
     }
 
     @Override
     public Date fromString(String s) {
-
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = null;
+        Date date;
         try {
             date = df.parse(s);
             return date;
@@ -28,6 +25,5 @@ public class DateToStringConverter extends StringConverter<Date> {
             e.printStackTrace();
         }
         return null;
-
     }
 }

@@ -12,19 +12,22 @@ public class Maid {
     @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name ="name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
+
     @Column(name = "patronymic")
     private String patronymic;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(mappedBy = "maid")
     private List<Schedule> schedules;
-
 
     @Override
     public String toString() {
@@ -39,15 +42,10 @@ public class Maid {
 
     }
 
-
     public Maid() {
     }
     public List<Schedule> getSchedules() {
         return schedules;
-    }
-
-    public void setSchedules(List<Schedule> schedules) {
-        this.schedules = schedules;
     }
     public int getId() {
         return id;
@@ -65,16 +63,8 @@ public class Maid {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
     }
 
     public void setPatronymic(String patronymic) {
@@ -87,5 +77,17 @@ public class Maid {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

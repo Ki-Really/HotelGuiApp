@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,20 +16,20 @@ public class AppController {
 
     @FXML
     private void setGuestScene(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com.example.hotelappwithhibernate/scenes/guestScene.fxml")));
+        Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass()
+                .getResource("/com.example.hotelappwithhibernate/scenes/guestScene.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,1110,625);
-
         stage.setScene(scene);
         stage.show();
     }
 
     @FXML
     private void setRoomScene(ActionEvent event) throws IOException{
-        Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com.example.hotelappwithhibernate/scenes/roomScene.fxml")));
+        Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass()
+                .getResource("/com.example.hotelappwithhibernate/scenes/roomScene.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,910,510);
-
         stage.setScene(scene);
         stage.show();
     }
@@ -41,7 +40,6 @@ public class AppController {
                 .getResource("/com.example.hotelappwithhibernate/scenes/maidScene.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,910,510);
-
         stage.setScene(scene);
         stage.show();
     }
@@ -52,7 +50,6 @@ public class AppController {
                 .getResource("/com.example.hotelappwithhibernate/scenes/scheduleScene.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,910,510);
-
         stage.setScene(scene);
         stage.show();
     }
@@ -62,7 +59,6 @@ public class AppController {
                 .getResource("/com.example.hotelappwithhibernate/scenes/serviceScene.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,910,510);
-
         stage.setScene(scene);
         stage.show();
     }

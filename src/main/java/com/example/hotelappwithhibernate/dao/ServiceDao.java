@@ -13,10 +13,8 @@ import java.util.List;
 public class ServiceDao {
     private final SessionFactory sessionFactory;
 
-
     public ServiceDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-
     }
 
     public List<Service> index(){
@@ -28,14 +26,10 @@ public class ServiceDao {
     }
 
     public void save(Service service, Guest guest){
-
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-            service.setGuests(new ArrayList<>(List.of(guest)));
-
-            guest.setServices(new ArrayList<>(List.of(service)));
-
+        service.setGuests(new ArrayList<>(List.of(guest)));
+        guest.setServices(new ArrayList<>(List.of(service)));
         session.persist(service);
         transaction.commit();
     }
@@ -43,12 +37,9 @@ public class ServiceDao {
     public void delete(int id,Guest guest){
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Service serviceToRemove = session.get(Service.class,id);
         serviceToRemove.getGuests().remove(guest);
-
         guest.getServices().remove(serviceToRemove);
-
         session.remove(serviceToRemove);
         transaction.commit();
     }
@@ -74,15 +65,12 @@ public class ServiceDao {
     public void updateName(int id, String name){
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Service service = session.get(Service.class,id);
         service.setName(name);
-
         transaction.commit();
     }
 
     public List<Service> findByFields(String fieldsToFind){
-
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = "FROM Service s join s.guests g WHERE " +
@@ -90,7 +78,6 @@ public class ServiceDao {
         System.out.println(hql);
         Query query = session.createQuery(hql, Service.class);
         List<Service> results = query.getResultList();
-
         transaction.commit();
         return results;
     }

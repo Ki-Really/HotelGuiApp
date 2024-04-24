@@ -11,7 +11,8 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com.example.hotelappwithhibernate/scenes/app.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(
+                "/com.example.hotelappwithhibernate/scenes/app.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 910, 510);
         stage.setTitle("Ki-Really Hotel *****");
         stage.setScene(scene);

@@ -10,32 +10,33 @@ public class Address {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "country")
     private String country;
+
     @Column(name = "city")
     private String city;
+
     @Column(name = "street")
     private String street;
+
     @Column(name = "building")
     private String building;
 
-
     @OneToOne(mappedBy = "address",fetch = FetchType.EAGER)
     private Maid maid;
+
     @OneToOne(mappedBy = "address",fetch = FetchType.EAGER)
     private Guest guest;
 
-
     public Address() {
     }
-
 
     public Address(String country, String city, String street, String building) {
         this.country = country;
         this.city = city;
         this.street = street;
         this.building = building;
-
     }
 
     public int getId() {
@@ -77,22 +78,9 @@ public class Address {
     public void setBuilding(String building) {
         this.building = building;
     }
-
-    public Maid getMaid() {
-        return maid;
-    }
-
     public void setMaid(Maid maid) {
         this.maid = maid;
     }
-
-    /*public Guest getGuest() {
-        return guest;
-    }
-
-    public void setGuest(Guest guest) {
-        this.guest = guest;
-    }*/
 
     @Override
     public String toString() {
@@ -107,6 +95,7 @@ public class Address {
     }
 
     public void setGuest(Guest guest) {
+        this.guest = guest;
     }
 
     public Guest getGuest() {

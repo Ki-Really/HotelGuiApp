@@ -24,34 +24,28 @@ public class PassportDao {
 
     public void save(Passport passport){
         Session session = sessionFactory.getCurrentSession();
-
         session.persist(passport);
-
     }
 
     public void delete(int id){
         Session session = sessionFactory.getCurrentSession();
-
         session.remove(session.get(Passport.class,id));
     }
 
     public void updateNPassport(int id, int nPassport){
         Session session = sessionFactory.getCurrentSession();
-
         Passport passport = session.get(Passport.class,id);
         passport.setNumber(nPassport);
     }
+
     public void updateIssuance(int id, Date date){
-
         Session session = sessionFactory.getCurrentSession();
-
         Passport passport = session.get(Passport.class,id);
         passport.setIssuance(date);
     }
 
     public void updateGivenBy(int id, String given){
         Session session = sessionFactory.getCurrentSession();
-
         Passport passport = session.get(Passport.class,id);
         passport.setGivenBy(given);
     }

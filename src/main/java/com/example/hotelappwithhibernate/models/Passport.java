@@ -10,12 +10,16 @@ public class Passport {
     @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name ="number")
     private int number;
+
     @Column(name ="issuance")
     private Date issuance;
+
     @Column(name = "given_by")
     private String givenBy;
+
     @OneToOne(mappedBy = "passport")
     private Guest guest;
 
@@ -23,13 +27,11 @@ public class Passport {
         this.number = number;
         this.issuance = issuance;
         this.givenBy = givenBy;
-
     }
-
-
 
     public Passport() {
     }
+
     public Guest getGuest() {
         return guest;
     }
@@ -37,6 +39,7 @@ public class Passport {
     public void setGuest(Guest guest) {
         this.guest = guest;
     }
+
     public int getId() {
         return id;
     }
@@ -67,11 +70,11 @@ public class Passport {
 
     @Override
     public String toString() {
-        return
-                 number+"";
+        return String.valueOf(number);
     }
 
     public void setGivenBy(String givenBy) {
         this.givenBy = givenBy;
     }
+
 }

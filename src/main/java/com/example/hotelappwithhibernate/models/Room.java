@@ -11,6 +11,7 @@ public class Room {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "number")
     private int number;
 
@@ -19,6 +20,7 @@ public class Room {
 
     @OneToMany(mappedBy = "room")
     private List<Guest> guests;
+
     @OneToMany(mappedBy = "room")
     private List<Schedule> schedules;
 
@@ -28,13 +30,6 @@ public class Room {
     }
 
     public Room() {
-    }
-    public List<Guest> getGuests() {
-        return guests;
-    }
-
-    public void setGuests(List<Guest> guests) {
-        this.guests = guests;
     }
 
     public int getId() {
@@ -49,14 +44,6 @@ public class Room {
         return number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getPeople_count() {
-        return people_count;
-    }
-
     public void setPeople_count(int people_count) {
         this.people_count = people_count;
     }
@@ -65,5 +52,29 @@ public class Room {
     public String toString() {
         return  "number=" + number +
                 ", people_count=" + people_count;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getPeople_count() {
+        return people_count;
+    }
+
+    public List<Guest> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(List<Guest> guests) {
+        this.guests = guests;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

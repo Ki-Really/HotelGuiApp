@@ -36,7 +36,6 @@ public class RoomDao {
         Transaction transaction = session.beginTransaction();
         Room roomToBeUpdated = session.get(Room.class,id);
         roomToBeUpdated.setPeople_count(count);
-
         transaction.commit();
     }
 
@@ -49,16 +48,11 @@ public class RoomDao {
     }
 
     public List<Room> findByFields(int fieldsToFind){
-
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         String hql = "FROM Room r WHERE r.number = "+fieldsToFind+" OR r.people_count = "+fieldsToFind+" ";
         Query query = session.createQuery(hql, Room.class);
         List<Room> results = query.getResultList();
-
-
-
         transaction.commit();
         return results;
     }
@@ -69,5 +63,4 @@ public class RoomDao {
         Room result = (Room)query.getSingleResult();
         return result;
     }
-
 }

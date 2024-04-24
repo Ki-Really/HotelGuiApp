@@ -4,7 +4,6 @@ package com.example.hotelappwithhibernate.controllers;
 import com.example.hotelappwithhibernate.dao.MaidDao;
 import com.example.hotelappwithhibernate.models.*;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,11 +31,6 @@ public class MaidController {
     public TextField maidCountryAdd;
     public TextField maidPatronymicAdd;
     public TextField maidSurnameAdd;
-
-
-    private Stage stage;
-    private Scene scene;
-
     Configuration configuration = new Configuration().addAnnotatedClass(Maid.class)
             .addAnnotatedClass(Address.class)
             .addAnnotatedClass(Guest.class)
@@ -83,20 +77,14 @@ public class MaidController {
                 && !maidPatronymicAdd.getText().isEmpty() && !maidCountryAdd.getText().isEmpty()
                 && !maidCityAdd.getText().isEmpty() && !maidStreetAdd.getText().isEmpty()
                 && !maidBuildingAdd.getText().isEmpty()){
-
             Maid maid = new Maid(maidNameAdd.getText(),maidSurnameAdd.getText(),maidPatronymicAdd.getText());
-
             Address address = new Address(maidCountryAdd.getText(),maidCityAdd.getText(),
                     maidStreetAdd.getText(),maidBuildingAdd.getText());
-
             address.setMaid(maid);
-
             maid.setAddress(address);
-
             maidDao.save(maid);
             tableCreation();
         }
-
     }
 
 
@@ -111,48 +99,28 @@ public class MaidController {
 
         obsMaidList.addAll(maidList);
 
-        tableId.setCellValueFactory(new PropertyValueFactory<Maid, Integer>("Id"));
-        tableName.setCellValueFactory(new PropertyValueFactory<Maid, String>("Name"));
+        tableId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        tableName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         tableName.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        tableSurname.setCellValueFactory(new PropertyValueFactory<Maid, String>("Surname"));
+        tableSurname.setCellValueFactory(new PropertyValueFactory<>("Surname"));
         tableSurname.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        tablePatronymic.setCellValueFactory(new PropertyValueFactory<Maid, String>("Patronymic"));
+        tablePatronymic.setCellValueFactory(new PropertyValueFactory<>("Patronymic"));
         tablePatronymic.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        tableCountry.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Maid, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Maid, String> m) {
-                return new SimpleStringProperty( m.getValue().getAddress().getCountry());
-            }
-        });
+        tableCountry.setCellValueFactory(m -> new SimpleStringProperty(m.getValue().getAddress().getCountry()));
         tableCountry.setCellFactory(TextFieldTableCell.forTableColumn());
-        tableCity.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Maid, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Maid, String> m) {
-                return new SimpleStringProperty( m.getValue().getAddress().getCity());
-            }
-        });
+        tableCity.setCellValueFactory(m -> new SimpleStringProperty( m.getValue().getAddress().getCity()));
         tableCity.setCellFactory(TextFieldTableCell.forTableColumn());
         tableStreet.setCellFactory(TextFieldTableCell.forTableColumn());
-        tableStreet.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Maid, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Maid, String> m) {
-                return new SimpleStringProperty( m.getValue().getAddress().getStreet());
-            }
-        });
+        tableStreet.setCellValueFactory(m -> new SimpleStringProperty(m.getValue().getAddress().getStreet()));
 
         tableBuilding.setCellFactory(TextFieldTableCell.forTableColumn());
-        tableBuilding.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Maid, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Maid,String> m) {
-                return new SimpleStringProperty(m.getValue().getAddress().getBuilding());
-            }
-        });
+        tableBuilding.setCellValueFactory(m -> new SimpleStringProperty(m.getValue().getAddress().getBuilding()));
 
         Callback<TableColumn<Maid, String>, TableCell<Maid, String>> cellDeleteFactory = (param) -> {
-            final TableCell<Maid, String> cell = new TableCell<Maid, String>() {
+            final TableCell<Maid, String> cell = new TableCell<>() {
                 @Override
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -164,7 +132,7 @@ public class MaidController {
                         deleteButton.setOnAction((event) -> {
                             Maid maid = getTableView().getItems().get(getIndex());
 
-                           maidDao.delete(maid.getId());
+                            maidDao.delete(maid.getId());
                             tableCreation();
                         });
                         setGraphic(deleteButton);
@@ -176,15 +144,14 @@ public class MaidController {
         };
         tableDelete.setCellFactory(cellDeleteFactory);
         table.setItems(obsMaidList);
-
     }
 
     @FXML
     private void backAction(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com.example.hotelappwithhibernate/scenes/app.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root,910,510);
-
+        Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
+                "/com.example.hotelappwithhibernate/scenes/app.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 910, 510);
         stage.setScene(scene);
         stage.show();
     }
@@ -242,5 +209,4 @@ public class MaidController {
         obsMaidList.addAll(resList);
         table.setItems(obsMaidList);
     }
-
 }

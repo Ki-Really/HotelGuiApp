@@ -28,8 +28,6 @@ import java.util.Objects;
 public class RoomController {
 
     public Label errorLbl;
-    private Stage stage;
-    private Scene scene;
     Configuration configuration = new Configuration().addAnnotatedClass(Room.class)
             .addAnnotatedClass(Guest.class)
             .addAnnotatedClass(Address.class)
@@ -39,25 +37,21 @@ public class RoomController {
             .addAnnotatedClass(Schedule.class)
             .addAnnotatedClass(Service.class);
     SessionFactory sessionFactory = configuration.buildSessionFactory();
-    private RoomDao roomDao = new RoomDao(sessionFactory);
+    private final RoomDao roomDao = new RoomDao(sessionFactory);
 
 
     public TextField findTextField;
     public TextField roomCountAdd;
     public TextField roomNumberAdd;
 
-
     public TitledPane titledPane;
-
 
     public TableView<Room> table;
     public TableColumn<Room,Integer> tableId;
     public TableColumn<Room, String> tableNumber;
     public TableColumn<Room,Integer> tableCount;
     public TableColumn<Room,String> tableDelete;
-
     public ObservableList<Room> obsRoomList = FXCollections.observableArrayList();
-
     @FXML
     private void initialize(){
         titledPaneAnimation();
@@ -66,7 +60,7 @@ public class RoomController {
         table.getSelectionModel().setCellSelectionEnabled(true);
     }
 
-@FXML
+    @FXML
     private void create(){
         table.getItems().clear();
         errorLbl.setVisible(false);
@@ -90,14 +84,14 @@ public class RoomController {
         table.getItems().clear();
         List<Room> roomList = roomDao.index();
         obsRoomList.addAll(roomList);
-        tableId.setCellValueFactory(new PropertyValueFactory<Room, Integer>("Id"));
-        tableNumber.setCellValueFactory(new PropertyValueFactory<Room, String>("Number"));
-        tableCount.setCellValueFactory(new PropertyValueFactory<Room, Integer>("people_count"));
+        tableId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        tableNumber.setCellValueFactory(new PropertyValueFactory<>("Number"));
+        tableCount.setCellValueFactory(new PropertyValueFactory<>("people_count"));
 
         tableCount.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         Callback<TableColumn<Room, String>, TableCell<Room, String>> cellDeleteFactory = (param) -> {
-            final TableCell<Room, String> cell = new TableCell<Room, String>() {
+            final TableCell<Room, String> cell = new TableCell<>() {
                 @Override
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -111,9 +105,9 @@ public class RoomController {
                             GuestDao guestDao = new GuestDao(sessionFactory);
                             ScheduleDao scheduleDao = new ScheduleDao(sessionFactory);
 
-                            if(guestDao.isRoomPresent(room) || scheduleDao.isRoomPresent(room)){
+                            if (guestDao.isRoomPresent(room) || scheduleDao.isRoomPresent(room)) {
                                 return;
-                            }else{
+                            } else {
                                 System.out.println(guestDao.isRoomPresent(room));
                                 System.out.println(scheduleDao.isRoomPresent(room));
                                 roomDao.delete(room.getId());
@@ -155,10 +149,10 @@ public class RoomController {
 
     @FXML
     private void backAction(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com.example.hotelappwithhibernate/scenes/app.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root,910,510);
-
+        Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
+                "/com.example.hotelappwithhibernate/scenes/app.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 910, 510);
         stage.setScene(scene);
         stage.show();
     }
