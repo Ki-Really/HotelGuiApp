@@ -23,7 +23,6 @@ import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -51,7 +50,7 @@ public class GuestController {
     public TextField guestSurnameAdd;
     public TextField guestNameAdd;
     public ComboBox<Room> guestNRoomAdd;
-    //Columns
+
     public TableColumn<Guest, Integer> tableId;
     public TableColumn<Guest, String> tableName;
     public TableColumn<Guest, String> tableSurname;
@@ -70,9 +69,11 @@ public class GuestController {
     public TableColumn<Guest, Integer> tableNRoom;
     public TableColumn<Guest, Date> tableDEntry;
     public TableColumn<Guest, Date> tableDDepartment;
+
     public TableColumn<Guest, String> tableDelete;
 
     public TableView<Guest> table;
+
     public TitledPane titledPane;
     public TextField guestGenderAdd;
     public ObservableList<Guest> obsGuestList = FXCollections.observableArrayList();
@@ -133,24 +134,18 @@ public class GuestController {
                     Integer.parseInt(guestParkingAdd.getText()),guestNAutoAdd.getText(),dateEntry,
                     dateDepart);
 
-
             Address address = new Address(guestCountryAdd.getText(),guestCityAdd.getText(),
                     guestStreetAdd.getText(),guestBuildingAdd.getText());
             address.setGuest(guest);
             guest.setAddress(address);
-
-
             Date date = dateWork(guestIssuanceAdd.getText());
             Passport passport = new Passport(Integer.parseInt(guestNPassportAdd.getText()),
                     date, guestGivenByAdd.getText());
             passport.setGuest(guest);
             guest.setPassport(passport);
-
             guest.setRoom(guestNRoomAdd.getValue());
-
             guest.setAddress(address);
             guest.setPassport(passport);
-
             guestDao.save(guest);
             tableCreation();
         }
@@ -158,7 +153,6 @@ public class GuestController {
 
     private void getRoom(){
         RoomDao roomDao = new RoomDao(sessionFactory);
-
         rooms.setAll(roomDao.index());
         guestNRoomAdd.setItems(rooms);
     }
@@ -169,10 +163,10 @@ public class GuestController {
         table.getItems().clear();
 
         List<Guest> guestList = guestDao.index();
-
         obsGuestList.addAll(guestList);
 
         tableId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+
         tableName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         tableName.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -185,7 +179,6 @@ public class GuestController {
         tableGender.setCellValueFactory(new PropertyValueFactory<>("Gender"));
         tableGender.setCellFactory(TextFieldTableCell.forTableColumn());
 
-
         tableNAuto.setCellValueFactory(new PropertyValueFactory<>("auto_number"));
         tableNAuto.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -193,10 +186,11 @@ public class GuestController {
         tableParking.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         tableCountry.setCellValueFactory(g -> new SimpleStringProperty( g.getValue().getAddress().getCountry()));
-
         tableCountry.setCellFactory(TextFieldTableCell.forTableColumn());
+
         tableCity.setCellValueFactory(g -> new SimpleStringProperty( g.getValue().getAddress().getCity()));
         tableCity.setCellFactory(TextFieldTableCell.forTableColumn());
+
         tableStreet.setCellFactory(TextFieldTableCell.forTableColumn());
         tableStreet.setCellValueFactory(g -> new SimpleStringProperty( g.getValue().getAddress().getStreet()));
 
@@ -255,7 +249,6 @@ public class GuestController {
         };
         tableDelete.setCellFactory(cellDeleteFactory);
         table.setItems(obsGuestList);
-
     }
 
     public void onNameChange(TableColumn.CellEditEvent<Guest, String> guestStringCellEditEvent) {
@@ -283,7 +276,6 @@ public class GuestController {
     }
 
     public void onBirthChange(TableColumn.CellEditEvent<Guest, Date> guestDateCellEditEvent) {
-
         Guest guest = table.getSelectionModel().getSelectedItem();
         guestDao.updateBirth(guest.getId(), guestDateCellEditEvent.getNewValue());
         tableCreation();
