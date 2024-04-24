@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class RoomController {
-
     public Label errorLbl;
     Configuration configuration = new Configuration().addAnnotatedClass(Room.class)
             .addAnnotatedClass(Guest.class)
@@ -39,7 +38,6 @@ public class RoomController {
     SessionFactory sessionFactory = configuration.buildSessionFactory();
     private final RoomDao roomDao = new RoomDao(sessionFactory);
 
-
     public TextField findTextField;
     public TextField roomCountAdd;
     public TextField roomNumberAdd;
@@ -47,9 +45,11 @@ public class RoomController {
     public TitledPane titledPane;
 
     public TableView<Room> table;
+
     public TableColumn<Room,Integer> tableId;
     public TableColumn<Room, String> tableNumber;
     public TableColumn<Room,Integer> tableCount;
+
     public TableColumn<Room,String> tableDelete;
     public ObservableList<Room> obsRoomList = FXCollections.observableArrayList();
     @FXML
@@ -64,7 +64,6 @@ public class RoomController {
     private void create(){
         table.getItems().clear();
         errorLbl.setVisible(false);
-
         if(!roomNumberAdd.getText().isEmpty() && !roomCountAdd.getText().isEmpty()){
             Room room = new Room(Integer.parseInt(roomNumberAdd.getText()),Integer.parseInt(roomCountAdd.getText()));
             roomDao.save(room);
@@ -74,7 +73,6 @@ public class RoomController {
             errorLbl.setVisible(true);
         }
     }
-
 
     private void titledPaneAnimation(){
         titledPane.setAnimated(true);
@@ -104,7 +102,6 @@ public class RoomController {
                             Room room = getTableView().getItems().get(getIndex());
                             GuestDao guestDao = new GuestDao(sessionFactory);
                             ScheduleDao scheduleDao = new ScheduleDao(sessionFactory);
-
                             if (guestDao.isRoomPresent(room) || scheduleDao.isRoomPresent(room)) {
                                 return;
                             } else {
@@ -126,7 +123,6 @@ public class RoomController {
         table.setItems(obsRoomList);
     }
 
-
 @FXML
     public void onCountChange(TableColumn.CellEditEvent<Room, Integer> roomStringCellEditEvent) {
         Room room = table.getSelectionModel().getSelectedItem();
@@ -145,7 +141,6 @@ public class RoomController {
         obsRoomList.addAll(resList);
         table.setItems(obsRoomList);
     }
-
 
     @FXML
     private void backAction(ActionEvent event) throws IOException {

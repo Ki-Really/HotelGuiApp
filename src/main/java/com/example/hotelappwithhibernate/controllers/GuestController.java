@@ -358,7 +358,6 @@ public class GuestController {
     }
 
 
-
     public void backAction(ActionEvent event)throws IOException {
         Parent root =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com.example.hotelappwithhibernate/scenes/app.fxml")));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -366,7 +365,6 @@ public class GuestController {
         stage.setScene(scene);
         stage.show();
     }
-
 
     public void findInTable() {
         if(findTextField.getText().isEmpty()){

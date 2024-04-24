@@ -38,15 +38,18 @@ public class ServiceController {
     private final ServiceDao serviceDao = new ServiceDao(sessionFactory);
 
     public TableView<Service> table;
+
     public TableColumn<Service,Integer> tableId;
     public TableColumn<Service,Guest> tableGuest;
     public TableColumn<Service, String> tableService;
+
     public TableColumn<Service,String> tableDelete;
+
     public TextField findTextField;
     public ComboBox<Guest> guestAdd;
     public TextField serviceAdd;
-    public TitledPane titledPane;
 
+    public TitledPane titledPane;
     public ObservableList<Service> obsServiceList = FXCollections.observableArrayList();
     private final ObservableList<Guest> guests = FXCollections.observableArrayList();
 
@@ -77,8 +80,8 @@ public class ServiceController {
             serviceDao.save(service,guest);
             tableCreation();
         }
-
     }
+
     private void getGuests(){
         GuestDao guestDao = new GuestDao(sessionFactory);
 
@@ -137,7 +140,6 @@ public class ServiceController {
     public void onGuestChange() {
         tableGuest.setOnEditCommit((TableColumn.CellEditEvent<Service, Guest> event) -> {
             TablePosition<Service, Guest> pos = event.getTablePosition();
-
             Guest guest = event.getNewValue();
             int row = pos.getRow();
             Service service = event.getTableView().getItems().get(row);
@@ -145,7 +147,6 @@ public class ServiceController {
         });
         tableCreation();
     }
-
 
     public void findInTable() {
         if(findTextField.getText().isEmpty()){

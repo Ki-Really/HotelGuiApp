@@ -38,12 +38,15 @@ public class ScheduleController {
 
     SessionFactory sessionFactory = configuration.buildSessionFactory();
     private final ScheduleDao scheduleDao  = new ScheduleDao(sessionFactory);
+
     public TableView<Schedule> table;
+
     public TextField findTextField;
     public ComboBox<Room> scheduleRoomAdd;
     public ComboBox<Maid> scheduleMaidAdd;
     public TextField scheduleTimeAdd;
     public TextField scheduleDayAdd;
+
     public TitledPane titledPane;
 
     public TableColumn<Schedule,Integer> tableId;
@@ -51,12 +54,11 @@ public class ScheduleController {
     public TableColumn<Schedule, String> tableTime;
     public TableColumn<Schedule, Maid> tableMaid;
     public TableColumn<Schedule, Integer> tableNRoom;
-    public TableColumn<Schedule,String> tableDelete;
 
+    public TableColumn<Schedule,String> tableDelete;
     public ObservableList<Schedule> obsScheduleList = FXCollections.observableArrayList();
     private final ObservableList<Room> rooms = FXCollections.observableArrayList();
     private final ObservableList<Maid> maids = FXCollections.observableArrayList();
-
 
     @FXML
     private void initialize(){
@@ -172,9 +174,7 @@ public class ScheduleController {
     public void onRoomChange() {
         tableNRoom.setOnEditCommit((TableColumn.CellEditEvent<Schedule, Integer> event) -> {
             TablePosition<Schedule, Integer> pos = event.getTablePosition();
-
             int newNRoom = event.getNewValue();
-
             int row = pos.getRow();
             Schedule schedule = event.getTableView().getItems().get(row);
             scheduleDao.updateNRoom(schedule.getId(),newNRoom);

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MaidController {
+
     public TextField findTextField;
     public TextField maidBuildingAdd;
     public TextField maidStreetAdd;
@@ -39,7 +40,6 @@ public class MaidController {
             .addAnnotatedClass(Service.class)
             .addAnnotatedClass(Schedule.class)
             .addAnnotatedClass(Service.class);
-
     SessionFactory sessionFactory = configuration.buildSessionFactory();
     private final MaidDao maidDao  = new MaidDao(sessionFactory);
 
@@ -47,10 +47,10 @@ public class MaidController {
 
     public TitledPane titledPane;
     public TextField maidNameAdd;
+
     public TableColumn<Maid,Integer> tableId;
     public TableColumn<Maid, String> tableName;
     public TableColumn<Maid,String> tableSurname;
-
     public TableColumn<Maid, String> tablePatronymic;
     public TableColumn<Maid,String> tableCountry;
     public TableColumn<Maid, String> tableCity;
@@ -60,7 +60,6 @@ public class MaidController {
     public TableColumn<Maid,String> tableDelete;
 
     public ObservableList<Maid> obsMaidList = FXCollections.observableArrayList();
-
 
     @FXML
     private void initialize(){
@@ -86,7 +85,6 @@ public class MaidController {
             tableCreation();
         }
     }
-
 
     private void titledPaneAnimation(){
         titledPane.setAnimated(true);
@@ -155,6 +153,7 @@ public class MaidController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     public void onNameChange(TableColumn.CellEditEvent<Maid, String> maidStringCellEditEvent) {
         Maid maid = table.getSelectionModel().getSelectedItem();
@@ -168,30 +167,35 @@ public class MaidController {
         maidDao.updateSurname(maid.getId(),maidStringCellEditEvent.getNewValue());
         tableCreation();
     }
+
     @FXML
     public void onPatronymicChange(TableColumn.CellEditEvent<Maid, String> maidStringCellEditEvent) {
         Maid maid = table.getSelectionModel().getSelectedItem();
         maidDao.updatePatronymic(maid.getId(),maidStringCellEditEvent.getNewValue());
         tableCreation();
     }
+
     @FXML
     public void onCountryChange(TableColumn.CellEditEvent<Maid, String> maidStringCellEditEvent) {
         Maid maid = table.getSelectionModel().getSelectedItem();
         maidDao.updateCountry(maid.getId(),maidStringCellEditEvent.getNewValue());
         tableCreation();
     }
+
     @FXML
     public void onCityChange(TableColumn.CellEditEvent<Maid, String> maidStringCellEditEvent) {
         Maid maid = table.getSelectionModel().getSelectedItem();
         maidDao.updateCity(maid.getId(),maidStringCellEditEvent.getNewValue());
         tableCreation();
     }
+
     @FXML
     public void onStreetChange(TableColumn.CellEditEvent<Maid, String> maidStringCellEditEvent) {
         Maid maid = table.getSelectionModel().getSelectedItem();
         maidDao.updateStreet(maid.getId(),maidStringCellEditEvent.getNewValue());
         tableCreation();
     }
+
     @FXML
     public void onBuildingChange(TableColumn.CellEditEvent<Maid, String> maidStringCellEditEvent) {
         Maid maid = table.getSelectionModel().getSelectedItem();
