@@ -15,3 +15,12 @@ Here I use MVC pattern, where:
 
 ## Database scheme looks like
 ![image](https://github.com/Ki-Really/HotelGuiApp/assets/133647432/29b2273c-44a4-44d4-b1e3-45f593a8ae7f)
+
+- Table guest– guest data (passport, address, etc.). 
+- Table address – address data.
+- Table passport – passport data.
+- Table room – room data.
+- Table maid – maid data (address, name, surname, patronymic).
+- Table schedule – schedule of cleaning (for each maid).
+- Table service – additional service for guests (spa, swimming pool, PS4 etc.).
+
