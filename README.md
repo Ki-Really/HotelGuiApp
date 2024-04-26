@@ -2,7 +2,7 @@
 Project for admins of hotel. Made using Java, PostgreSQL, Hibernate, JavaFX. There is an opportunity to add person, maid, schedule etc. to database. Opportunity to update and delete entities. Created JavaFX GUI 
 for making admins work easier. Also there is an opportunity to search by fields, which are the names of columns. 
 Here I use MVC pattern, where: 
-- Models are my entities, where I describe their parameters.
+- Models are my entities, where I describe their parameters (database fields).
 - Views are my .fxml files which are responsible for GUI.
 - Controllers are classes where I switch scenes and making managing stuff.
 
